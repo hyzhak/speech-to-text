@@ -11,7 +11,6 @@ setup(
     packages=find_packages(where="src"),
     python_requires=">=3.8",
     install_requires=[
-        "pydantic>=2.0.0",
         "opentelemetry-api>=1.20.0",
         "opentelemetry-sdk>=1.20.0",
     ],

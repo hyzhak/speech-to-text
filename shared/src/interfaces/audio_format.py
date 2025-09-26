@@ -1,18 +1,20 @@
 """Audio Format Handler Interface
 
-This module defines the interface for audio format detection, validation, and conversion.
+This module defines the abstract base class for audio format detection, validation, and conversion.
 Handles multiple audio formats and provides conversion capabilities when needed.
 """
 
+from abc import ABC, abstractmethod
 from typing import List, Optional
 
 
-class AudioFormatHandler:
-    """Handler for audio format detection, validation, and conversion."""
+class AudioFormatHandler(ABC):
+    """Abstract base class for audio format detection, validation, and conversion."""
     
     SUPPORTED_FORMATS = ["wav", "mp3", "mp4", "m4a", "flac", "ogg"]
     
     @staticmethod
+    @abstractmethod
     def validate_format(file_path: str) -> bool:
         """Validate if file format is supported.
         
@@ -25,6 +27,7 @@ class AudioFormatHandler:
         pass
     
     @staticmethod
+    @abstractmethod
     def detect_format(file_path: str) -> Optional[str]:
         """Detect audio format from file headers.
         
@@ -37,6 +40,7 @@ class AudioFormatHandler:
         pass
     
     @staticmethod
+    @abstractmethod
     async def convert_if_needed(file_path: str, target_format: str = "wav") -> str:
         """Convert audio to target format if needed.
         
