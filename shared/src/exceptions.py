@@ -1,62 +1,50 @@
-"""Shared Exception Classes
+"""Custom exceptions for the modular speech-to-text system.
 
-This module defines custom exception classes used throughout the
-modular speech-to-text system for consistent error handling.
+This module defines all custom exceptions used across the shared libraries
+and services to provide consistent error handling and reporting.
 """
-
-from typing import Any, Dict, Optional
 
 
 class STTBaseError(Exception):
-    """Base exception class for speech-to-text system errors."""
+    """Base exception for all speech-to-text system errors."""
 
-    def __init__(
-        self, message: str, error_code: str, details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: dict = None):
+        """Initialize the exception.
+
+        Args:
+            message: Human-readable error message
+            details: Optional dictionary with additional error context
+        """
         super().__init__(message)
         self.message = message
-        self.error_code = error_code
         self.details = details or {}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert exception to dictionary format for serialization."""
-        return {
-            "message": self.message,
-            "error_code": self.error_code,
-            "details": self.details,
-        }
 
 
 class AudioFormatError(STTBaseError):
     """Exception raised for audio format related errors."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
-        super().__init__(message, "AUDIO_FORMAT_ERROR", details)
+    pass
 
 
 class ModelLoadError(STTBaseError):
-    """Exception raised when ML model fails to load."""
+    """Exception raised when model loading fails."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
-        super().__init__(message, "MODEL_LOAD_ERROR", details)
+    pass
 
 
 class TranscriptionError(STTBaseError):
-    """Exception raised during transcription processing."""
+    """Exception raised when transcription operations fail."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
-        super().__init__(message, "TRANSCRIPTION_ERROR", details)
+    pass
 
 
 class ValidationError(STTBaseError):
-    """Exception raised for input validation errors."""
+    """Exception raised for data validation errors."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
-        super().__init__(message, "VALIDATION_ERROR", details)
+    pass
 
 
 class ConfigurationError(STTBaseError):
     """Exception raised for configuration related errors."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
-        super().__init__(message, "CONFIGURATION_ERROR", details)
+    pass

@@ -2,9 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    && rm -rf /var/lib/apt/lists/*
+# Install system dependencies (none needed for basic Python testing)
+RUN apt-get update && rm -rf /var/lib/apt/lists/*
 
 # Copy shared package first
 COPY shared/ /app/shared/
