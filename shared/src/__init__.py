@@ -11,7 +11,7 @@ from .exceptions import (
     ModelLoadError,
     TranscriptionError,
     ValidationError,
-    ConfigurationError
+    ConfigurationError,
 )
 from .interfaces.stt_model import SpeechToTextModel
 from .interfaces.audio_format import AudioFormatHandler
@@ -19,10 +19,9 @@ from .interfaces.audio_format import AudioFormatHandler
 __all__ = [
     # Data Models
     "AudioRequest",
-    "TranscriptionResult", 
+    "TranscriptionResult",
     "ModelConfig",
     "STTError",
-    
     # Exceptions
     "STTException",
     "AudioFormatError",
@@ -30,8 +29,7 @@ __all__ = [
     "TranscriptionError",
     "ValidationError",
     "ConfigurationError",
-    
     # Interfaces
     "SpeechToTextModel",
-    "AudioFormatHandler"
+    "AudioFormatHandler",
 ]

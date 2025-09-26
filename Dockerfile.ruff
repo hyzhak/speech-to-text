@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+# Install ruff
+RUN pip install ruff
+
+# Set working directory
+WORKDIR /app
+
+# Copy source code
+COPY . .
+
+# Default command to run ruff check
+CMD ["ruff", "check", ".", "--fix"]
