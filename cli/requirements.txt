@@ -1,0 +1,10 @@
+# CLI Service Dependencies
+click>=8.0.0
+requests>=2.28.0
+pydantic>=2.0.0
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+opentelemetry-exporter-otlp>=1.20.0
+
+# Local shared package
+-e ../shared
