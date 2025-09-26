@@ -40,7 +40,7 @@ Follow this step-by-step process for every task implementation to ensure consist
 6. **Commit Changes**
    - Follow conventional commit format: https://www.conventionalcommits.org/en/v1.0.0/
    - Include reference to GitHub issue
-   - you can add emoji to the commit message to indicate the type of change
+   - You can add emoji to the commit message to indicate the type of change
    - Examples:
      - `feat: 🗣️ add Whisper model integration (#123)`
      - `fix: 📻 resolve audio format validation issue (#124)`
@@ -118,8 +118,8 @@ Use conventional commits with issue references:
 
 ### Examples
 ```
-feat: 📏 add audio format validation service (#45)
-fix: 🪠 resolve memory leak in Whisper model loading (#46)
+feat: 🔊 add audio format validation service (#45)
+fix: 🧠 resolve memory leak in Whisper model loading (#46)
 docs: 📗 update README with Docker setup instructions (#47)
 test: 🧪 add integration tests for CLI interface (#48)
 ```
