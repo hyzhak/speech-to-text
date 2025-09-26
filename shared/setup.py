@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="stt-shared",
+    name="stt_shared",
     version="0.1.0",
     description="Shared libraries and interfaces for modular speech-to-text system",
     author="Speech-to-Text Team",

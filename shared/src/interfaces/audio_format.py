@@ -13,9 +13,8 @@ class AudioFormatHandler(ABC):
     
     SUPPORTED_FORMATS = ["wav", "mp3", "mp4", "m4a", "flac", "ogg"]
     
-    @staticmethod
     @abstractmethod
-    def validate_format(file_path: str) -> bool:
+    def validate_format(self, file_path: str) -> bool:
         """Validate if file format is supported.
         
         Args:
@@ -26,9 +25,8 @@ class AudioFormatHandler(ABC):
         """
         pass
     
-    @staticmethod
     @abstractmethod
-    def detect_format(file_path: str) -> Optional[str]:
+    def detect_format(self, file_path: str) -> Optional[str]:
         """Detect audio format from file headers.
         
         Args:
@@ -39,9 +37,8 @@ class AudioFormatHandler(ABC):
         """
         pass
     
-    @staticmethod
     @abstractmethod
-    async def convert_if_needed(file_path: str, target_format: str = "wav") -> str:
+    async def convert_if_needed(self, file_path: str, target_format: str = "wav") -> str:
         """Convert audio to target format if needed.
         
         Args:

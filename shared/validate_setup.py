@@ -1,33 +1,50 @@
 #!/usr/bin/env python3
-"""Validation script to verify shared package setup is correct."""
+"""Validation script to verify shared package setup is correct.
+
+This script should be run from the shared/ directory to test the package setup.
+Usage: python validate_setup.py
+"""
 
 import sys
 import os
+import subprocess
 
-# Add the src directory to the path for testing
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+def test_package_installation():
+    """Test that the package can be installed in development mode."""
+    try:
+        # Install package in development mode
+        result = subprocess.run([sys.executable, "-m", "pip", "install", "-e", "."], 
+                              capture_output=True, text=True, cwd=os.path.dirname(__file__))
+        if result.returncode != 0:
+            print(f"❌ Package installation failed: {result.stderr}")
+            return False
+        print("✅ Package installed successfully in development mode")
+        return True
+    except Exception as e:
+        print(f"❌ Package installation error: {e}")
+        return False
 
 def test_imports():
     """Test that all shared components can be imported correctly."""
     try:
+        # Test importing the main package
+        import stt_shared
+        print("✅ Main package imported successfully")
+        
         # Test data models
-        from models import AudioRequest, TranscriptionResult, ModelConfig, STTError
+        from stt_shared import AudioRequest, TranscriptionResult, ModelConfig, STTError
         print("✅ Data models imported successfully")
         
         # Test exceptions
-        from exceptions import (
+        from stt_shared import (
             STTException, AudioFormatError, ModelLoadError, 
             TranscriptionError, ValidationError, ConfigurationError
         )
         print("✅ Exception classes imported successfully")
         
         # Test interfaces
-        from interfaces.stt_model import SpeechToTextModel
-        from interfaces.audio_format import AudioFormatHandler
+        from stt_shared import SpeechToTextModel, AudioFormatHandler
         print("✅ Interfaces imported successfully")
-        
-        # Test main package imports (using direct imports since src is in path)
-        print("✅ Main package imports work correctly")
         
         return True
         

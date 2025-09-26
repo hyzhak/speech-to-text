@@ -8,14 +8,18 @@ and validation throughout the system.
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional
 from datetime import datetime
+from .interfaces.audio_format import AudioFormatHandler
 
 
 @dataclass
 class AudioRequest:
     """Request model for audio processing operations."""
     
+    # Supported output formats
+    SUPPORTED_OUTPUT_FORMATS = ["text", "json"]
+    
     file_path: str
-    audio_format: str  # "wav", "mp3", "mp4", "m4a", "flac", "ogg"
+    audio_format: str  # Must be one of AudioFormatHandler.SUPPORTED_FORMATS
     output_format: str = "text"
     model_config: Dict[str, Any] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -25,11 +29,10 @@ class AudioRequest:
         if not self.file_path:
             raise ValueError("file_path cannot be empty")
         
-        supported_formats = ["wav", "mp3", "mp4", "m4a", "flac", "ogg"]
-        if self.audio_format.lower() not in supported_formats:
+        if self.audio_format.lower() not in AudioFormatHandler.SUPPORTED_FORMATS:
             raise ValueError(f"Unsupported audio format: {self.audio_format}")
         
-        if self.output_format not in ["text", "json"]:
+        if self.output_format not in self.SUPPORTED_OUTPUT_FORMATS:
             raise ValueError(f"Unsupported output format: {self.output_format}")
 
 
@@ -60,15 +63,17 @@ class TranscriptionResult:
 class ModelConfig:
     """Configuration model for ML model settings."""
     
-    model_type: str  # "whisper", "mock"
+    # Supported model types
+    SUPPORTED_MODEL_TYPES = ["whisper", "mock"]
+    
+    model_type: str  # Must be one of SUPPORTED_MODEL_TYPES
     model_path: str
     parameters: Dict[str, Any] = field(default_factory=dict)
     fallback_enabled: bool = True
     
     def __post_init__(self):
         """Validate the model configuration after initialization."""
-        supported_types = ["whisper", "mock"]
-        if self.model_type.lower() not in supported_types:
+        if self.model_type.lower() not in self.SUPPORTED_MODEL_TYPES:
             raise ValueError(f"Unsupported model type: {self.model_type}")
         
         if not self.model_path:
