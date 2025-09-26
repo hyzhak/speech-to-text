@@ -4,17 +4,19 @@ These tests verify that any implementation of the SpeechToTextModel interface
 follows the expected contract and behavior.
 """
 
-import pytest
+import os
+import sys
 from abc import ABC
 from datetime import datetime
-import sys
-import os
+
+import pytest
 
 # Add the src directory to the path for direct imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from interfaces.stt_model import SpeechToTextModel
-from models import AudioRequest, TranscriptionResult, ModelConfig
+
+from models import AudioRequest, ModelConfig, TranscriptionResult
 
 
 class MockSTTModel(SpeechToTextModel):

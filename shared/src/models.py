@@ -6,8 +6,8 @@ and validation throughout the system.
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, Any
 from datetime import datetime
+from typing import Any, Dict
 
 
 @dataclass

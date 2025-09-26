@@ -4,10 +4,10 @@ This module defines the interface for audio format handling operations
 including format detection, validation, and conversion utilities.
 """
 
-from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional
-import sys
 import os
+import sys
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional
 
 # Add the parent directory to the path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))

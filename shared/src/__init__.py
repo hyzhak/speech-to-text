@@ -4,17 +4,17 @@ This package contains shared data models, interfaces, and utilities
 used across all services in the modular speech-to-text system.
 """
 
-from .models import AudioRequest, TranscriptionResult, ModelConfig, STTError
 from .exceptions import (
-    STTException,
     AudioFormatError,
+    ConfigurationError,
     ModelLoadError,
+    STTBaseError,
     TranscriptionError,
     ValidationError,
-    ConfigurationError,
 )
-from .interfaces.stt_model import SpeechToTextModel
 from .interfaces.audio_format import AudioFormatHandler
+from .interfaces.stt_model import SpeechToTextModel
+from .models import AudioRequest, ModelConfig, STTError, TranscriptionResult
 
 __all__ = [
     # Data Models
@@ -23,7 +23,7 @@ __all__ = [
     "ModelConfig",
     "STTError",
     # Exceptions
-    "STTException",
+    "STTBaseError",
     "AudioFormatError",
     "ModelLoadError",
     "TranscriptionError",

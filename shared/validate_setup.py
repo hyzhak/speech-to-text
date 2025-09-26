@@ -5,9 +5,9 @@ This script should be run from the shared/ directory to test the package setup.
 Usage: python validate_setup.py
 """
 
-import sys
 import os
 import subprocess
+import sys
 
 
 def test_package_installation():
@@ -39,24 +39,29 @@ def test_imports():
         print("✅ Main package imported successfully")
 
         # Test data models
-        from stt_shared import AudioRequest, TranscriptionResult, ModelConfig, STTError  # noqa: F401
+        from stt_shared import (  # noqa: F401
+            AudioRequest,
+            ModelConfig,
+            STTError,
+            TranscriptionResult,
+        )
 
         print("✅ Data models imported successfully")
 
         # Test exceptions
         from stt_shared import (  # noqa: F401
-            STTException,
             AudioFormatError,
+            ConfigurationError,
             ModelLoadError,
+            STTBaseError,
             TranscriptionError,
             ValidationError,
-            ConfigurationError,
         )
 
         print("✅ Exception classes imported successfully")
 
         # Test interfaces
-        from stt_shared import SpeechToTextModel, AudioFormatHandler  # noqa: F401
+        from stt_shared import AudioFormatHandler, SpeechToTextModel  # noqa: F401
 
         print("✅ Interfaces imported successfully")
 
@@ -73,7 +78,7 @@ def test_imports():
 def test_data_models():
     """Test that data models work correctly with validation."""
     try:
-        from models import AudioRequest, TranscriptionResult, ModelConfig
+        from models import AudioRequest, ModelConfig, TranscriptionResult
 
         # Test AudioRequest
         request = AudioRequest(  # noqa: F841

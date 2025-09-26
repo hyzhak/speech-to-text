@@ -4,16 +4,18 @@ These tests verify that any implementation of the AudioFormatHandler interface
 follows the expected contract and behavior.
 """
 
-import pytest
-from abc import ABC
-import tempfile
 import os
 import sys
+import tempfile
+from abc import ABC
+
+import pytest
 
 # Add the src directory to the path for direct imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from interfaces.audio_format import AudioFormatHandler
+
 from models import AudioRequest
 
 

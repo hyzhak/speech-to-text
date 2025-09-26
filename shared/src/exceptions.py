@@ -4,10 +4,10 @@ This module defines custom exception classes used throughout the
 modular speech-to-text system for consistent error handling.
 """
 
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 
-class STTException(Exception):
+class STTBaseError(Exception):
     """Base exception class for speech-to-text system errors."""
 
     def __init__(
@@ -27,35 +27,35 @@ class STTException(Exception):
         }
 
 
-class AudioFormatError(STTException):
+class AudioFormatError(STTBaseError):
     """Exception raised for audio format related errors."""
 
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(message, "AUDIO_FORMAT_ERROR", details)
 
 
-class ModelLoadError(STTException):
+class ModelLoadError(STTBaseError):
     """Exception raised when ML model fails to load."""
 
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(message, "MODEL_LOAD_ERROR", details)
 
 
-class TranscriptionError(STTException):
+class TranscriptionError(STTBaseError):
     """Exception raised during transcription processing."""
 
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(message, "TRANSCRIPTION_ERROR", details)
 
 
-class ValidationError(STTException):
+class ValidationError(STTBaseError):
     """Exception raised for input validation errors."""
 
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(message, "VALIDATION_ERROR", details)
 
 
-class ConfigurationError(STTException):
+class ConfigurationError(STTBaseError):
     """Exception raised for configuration related errors."""
 
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
