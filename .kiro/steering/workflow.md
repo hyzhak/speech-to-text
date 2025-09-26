@@ -67,15 +67,30 @@ Follow this step-by-step process for every task implementation to ensure consist
     - Ensure all CI/CD checks pass
     - Review any automated feedback
 
-11. **Respond to Feedback**
-    - React to each comment with appropriate emoji (👍, ❤️, 👀, 👎, etc.)
-    - Add sub-comments addressing each point
-    - Engage constructively with all feedback
-    - Ask clarifying questions if needed
+11. **Evaluate and Respond to Feedback**
+    - **Evaluate each Copilot comment for relevance and accuracy:**
+      - **Accept**: Valid suggestions that improve code quality, clarity, or correctness
+      - **Consider**: Suggestions that may be subjective but have merit (style preferences, alternative approaches)
+      - **Reject**: Comments that are incorrect, irrelevant, or would worsen the code
+      - **Clarify**: Comments that are unclear or need more context
+    - **Assessment criteria:**
+      - Does the suggestion fix an actual issue or improve functionality?
+      - Is the suggestion consistent with project conventions and standards?
+      - Would implementing the change benefit future maintainability?
+      - Is the comment based on accurate understanding of the code context?
+    - **Document your evaluation:**
+      - React to each comment with appropriate emoji (👍 for accept, 👀 for considering, 👎 for reject)
+      - Add sub-comments explaining your reasoning for each decision
+      - For rejected suggestions, explain why they don't apply or are incorrect
+      - For accepted suggestions, acknowledge and indicate you'll implement them
 
-12. **Implement Fixes**
-    - Make necessary changes based on feedback
+12. **Implement Accepted Changes**
+    - **Only implement changes you evaluated as beneficial in step 11**
+    - Make necessary changes based on accepted feedback
+    - **Do not implement suggestions you determined were incorrect or irrelevant**
+    - Group related changes into logical commits
     - Commit fixes following conventional commit format
+    - Include reference to specific feedback addressed in commit message
     - Push updated changes: `git push origin feature/123-add-whisper-model-support`
 
 13. **Repeat Review Process**
@@ -137,12 +152,57 @@ test: 🧪 add integration tests for CLI interface (#48)
 - Documentation: `docs/issue-number-brief-description`
 - Hotfixes: `hotfix/issue-number-brief-description`
 
+## Evaluating Copilot Feedback
+
+### Types of Feedback and How to Handle Them
+
+**✅ Accept These Types:**
+- Genuine bugs or security issues
+- Syntax errors or typos
+- Improvements to code clarity or readability
+- Better variable/function naming suggestions
+- Performance optimizations with clear benefits
+- Adherence to established project conventions
+
+**🤔 Consider These Types:**
+- Style preferences that don't conflict with project standards
+- Alternative implementation approaches
+- Suggestions for additional error handling
+- Documentation improvements
+- Refactoring suggestions for better maintainability
+
+**❌ Reject These Types:**
+- Suggestions that break existing functionality
+- Changes that conflict with project architecture decisions
+- Overly opinionated style changes that don't improve clarity
+- Suggestions based on misunderstanding of the code context
+- Changes that would introduce unnecessary complexity
+- Recommendations that contradict established project patterns
+
+### Example Evaluation Process
+
+```
+Copilot Comment: "Consider using const instead of let for this variable"
+Evaluation: ✅ Accept - Variable is never reassigned, const is more appropriate
+Action: Implement change and respond with 👍
+
+Copilot Comment: "This function should return a Promise"
+Evaluation: ❌ Reject - Function is intentionally synchronous for this use case
+Action: Respond with 👎 and explain: "Function needs to be synchronous for immediate validation"
+
+Copilot Comment: "Consider adding error handling here"
+Evaluation: 🤔 Consider - Good suggestion but need to evaluate if it fits the error handling strategy
+Action: Respond with 👀 and comment: "Good point, will add try-catch consistent with other service methods"
+```
+
 ## Best Practices
 
 - Keep commits atomic and focused
 - Write clear, descriptive commit messages
 - Document decisions and challenges in issue comments
-- Respond to all PR feedback professionally
+- Respond to all PR feedback professionally with clear reasoning
 - Test thoroughly before pushing
 - Keep feature branches up to date with main
 - Use meaningful branch names that reflect the work being done
+- **Evaluate all feedback critically - not all suggestions should be implemented**
+- **Explain your reasoning when rejecting feedback to maintain good communication**
