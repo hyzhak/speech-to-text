@@ -4,6 +4,8 @@
 
 Follow this step-by-step process for every task implementation to ensure consistent development practices and proper documentation.
 
+**⚠️ CRITICAL: Each step must be completed in sequential order. Do not skip steps or jump ahead to completion. Wait for each step to fully complete before proceeding to the next step. This workflow is designed to prevent errors and ensure quality.**
+
 ### Task Implementation Steps
 
 1. **Create GitHub Issue**
@@ -55,9 +57,10 @@ Follow this step-by-step process for every task implementation to ensure consist
    - Reference the GitHub issue: "Closes #123"
    - Add any additional context or testing notes
 
-9. **Request Copilot Review**
-   - Trigger GitHub Copilot review on the PR
-   - Wait for automated review to complete
+9. **Request Copilot Review (if enabled)**
+   - If your repository has GitHub Copilot PR review enabled, trigger the Copilot review on the PR
+   - If Copilot review is not enabled, proceed to manual review or follow your team's standard review process
+   - Wait for automated review to complete before proceeding to next step
 
 10. **Wait for Validation**
     - Wait for GitHub Actions to complete
@@ -76,12 +79,15 @@ Follow this step-by-step process for every task implementation to ensure consist
     - Push updated changes: `git push origin feature/123-add-whisper-model-support`
 
 13. **Repeat Review Process**
-    - Return to step 9 if significant changes were made
-    - Continue until no new comments or all feedback is addressed
+    - **MANDATORY**: Return to step 9 if ANY changes were made after review
+    - **DO NOT PROCEED** until all feedback is addressed and no new comments appear
+    - Continue this cycle until review process is complete
 
 14. **Merge When Ready**
+    - **ONLY PROCEED** when ALL previous steps are complete
     - Ensure PR has passed all validations
     - Ensure all comments are addressed
+    - **VERIFY** no pending reviews or feedback
     - Squash and merge the PR when approved
     - Delete the feature branch on GitHub
 
