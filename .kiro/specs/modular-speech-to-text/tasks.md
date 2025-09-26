@@ -2,7 +2,6 @@
 
 ## GitHub Workflow Requirements (Requirement 7)
 
-
 Each task must follow this workflow:
 
 1. **Before starting**: Create GitHub issue in hyzhak/speech-to-text repository
@@ -14,7 +13,7 @@ Each task must follow this workflow:
    - Create PR referencing the GitHub issue
    - Respond to PR comments with GitHub reactions and code updates
 
-- [-] 1. Set up project structure and shared interfaces
+- [x] 1. Set up project structure and shared interfaces
 
   - **GitHub Issue**: Create issue "Set up project strucature and shared interfaces"
   - Create directory structure for all services (cli/, stt-service/, audio-format-service/, shared/, tests/)
@@ -24,7 +23,7 @@ Each task must follow this workflow:
   - _Requirements: 2.1, 2.2, 2.3, 7.1, 7.2, 7.3, 7.4_
 
 - [ ] 2. Implement shared data models and interfaces
-- [ ] 2.1 Create core data model classes
+- [x] 2.1 Create core data model classes
 
   - **GitHub Issue**: Create issue "Implement core data model classes"
   - Write AudioRequest, TranscriptionResult, and ModelConfig dataclasses in shared/src/models.py
@@ -33,7 +32,7 @@ Each task must follow this workflow:
   - **Git Flow**: Create feature/data-models branch, commit as "feat: implement core data model classes with validation"
   - _Requirements: 1.1, 1.3, 2.1, 7.1, 7.2, 7.3, 7.4_
 
-- [ ] 2.2 Implement SpeechToTextModel abstract interface
+- [x] 2.2 Implement SpeechToTextModel abstract interface
 
   - **GitHub Issue**: Create issue "Implement SpeechToTextModel abstract interface"
   - Code SpeechToTextModel ABC in shared/src/interfaces/stt_model.py
@@ -42,7 +41,7 @@ Each task must follow this workflow:
   - **Git Flow**: Create feature/stt-interface branch, commit as "feat: implement SpeechToTextModel abstract interface"
   - _Requirements: 2.1, 2.2, 2.3, 7.1, 7.2, 7.3, 7.4_
 
-- [ ] 2.3 Implement AudioFormatHandler interface and utilities
+- [x] 2.3 Implement AudioFormatHandler interface and utilities
 
   - **GitHub Issue**: Create issue "Implement AudioFormatHandler interface and utilities"
   - Code AudioFormatHandler class in shared/src/interfaces/audio_format.py

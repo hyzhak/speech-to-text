@@ -8,18 +8,16 @@ and validation throughout the system.
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional
 from datetime import datetime
-from .interfaces.audio_format import AudioFormatHandler
-
-
 @dataclass
 class AudioRequest:
     """Request model for audio processing operations."""
     
-    # Supported output formats
+    # Supported formats (matching AudioFormatHandler.SUPPORTED_FORMATS)
+    SUPPORTED_AUDIO_FORMATS = ["wav", "mp3", "mp4", "m4a", "flac", "ogg"]
     SUPPORTED_OUTPUT_FORMATS = ["text", "json"]
     
     file_path: str
-    audio_format: str  # Must be one of AudioFormatHandler.SUPPORTED_FORMATS
+    audio_format: str  # Must be one of SUPPORTED_AUDIO_FORMATS
     output_format: str = "text"
     model_config: Dict[str, Any] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -29,7 +27,7 @@ class AudioRequest:
         if not self.file_path:
             raise ValueError("file_path cannot be empty")
         
-        if self.audio_format.lower() not in AudioFormatHandler.SUPPORTED_FORMATS:
+        if self.audio_format.lower() not in self.SUPPORTED_AUDIO_FORMATS:
             raise ValueError(f"Unsupported audio format: {self.audio_format}")
         
         if self.output_format not in self.SUPPORTED_OUTPUT_FORMATS:
