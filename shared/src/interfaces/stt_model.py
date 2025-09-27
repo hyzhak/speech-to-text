@@ -8,7 +8,7 @@ different model types (Whisper, mock, etc.).
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 
-from stt_shared.models import AudioRequest, ModelConfig, TranscriptionResult
+from models import AudioRequest, ModelConfig, TranscriptionResult
 
 
 class SpeechToTextModel(ABC):
@@ -123,13 +123,13 @@ class SpeechToTextModel(ABC):
             AudioFormatError: If audio format is not supported
         """
         if not self.is_loaded:
-            from ..exceptions import ModelLoadError
+            from exceptions import ModelLoadError
 
             raise ModelLoadError("Model must be loaded before processing requests")
 
         supported_formats = self.get_supported_formats()
         if request.audio_format.lower() not in supported_formats:
-            from ..exceptions import AudioFormatError
+            from exceptions import AudioFormatError
 
             raise AudioFormatError(
                 f"Audio format '{request.audio_format}' not supported. "

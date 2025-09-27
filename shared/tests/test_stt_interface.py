@@ -4,17 +4,10 @@ These tests verify that any implementation of the SpeechToTextModel interface
 follows the expected contract and behavior.
 """
 
-import os
-
-# Add the src directory to the path for direct imports
-import sys
 from abc import ABC
 from datetime import datetime
 
 import pytest
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
-
 from interfaces.stt_model import SpeechToTextModel
 
 from models import AudioRequest, ModelConfig, TranscriptionResult
@@ -102,6 +95,7 @@ class TestSpeechToTextModelInterface:
         assert not self.model.is_loaded
         assert hasattr(self.model, "_is_loaded")
 
+    @pytest.mark.asyncio
     async def test_load_unload_model(self):
         """Test model loading and unloading."""
         # Initially not loaded
@@ -115,6 +109,7 @@ class TestSpeechToTextModelInterface:
         await self.model.unload_model()
         assert not self.model.is_loaded
 
+    @pytest.mark.asyncio
     async def test_transcribe_requires_loaded_model(self):
         """Test that transcription requires a loaded model."""
         # Should work when loaded
@@ -144,6 +139,7 @@ class TestSpeechToTextModelInterface:
         assert info["type"] == self.config.model_type
         assert info["parameters"] == self.config.parameters
 
+    @pytest.mark.asyncio
     async def test_health_check(self):
         """Test health check functionality."""
         # Test when not loaded
@@ -164,6 +160,7 @@ class TestSpeechToTextModelInterface:
         health_loaded = await self.model.health_check()
         assert health_loaded["status"] == "healthy"
 
+    @pytest.mark.asyncio
     async def test_validate_request_with_loaded_model(self):
         """Test request validation with loaded model."""
         await self.model.load_model()
@@ -181,6 +178,7 @@ class TestSpeechToTextModelInterface:
         with pytest.raises(Exception):  # ModelLoadError when exceptions module exists
             self.model.validate_request(self.audio_request)
 
+    @pytest.mark.asyncio
     async def test_is_loaded_property(self):
         """Test the is_loaded property."""
         assert not self.model.is_loaded

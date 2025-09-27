@@ -5,16 +5,10 @@ follows the expected contract and behavior.
 """
 
 import os
-
-# Add the src directory to the path for direct imports
-import sys
 import tempfile
 from abc import ABC
 
 import pytest
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
-
 from interfaces.audio_format import AudioFormatHandler
 
 from models import AudioRequest
@@ -50,7 +44,7 @@ class MockAudioFormatHandler(AudioFormatHandler):
 
         return self._mock_files[file_path]
 
-    def convert_if_needed(self, file_path: str, target_format: str = "wav") -> str:
+    async def convert_if_needed(self, file_path: str, target_format: str = "wav") -> str:
         """Mock conversion."""
         if file_path not in self._mock_files:
             raise FileNotFoundError(f"File not found: {file_path}")
@@ -148,20 +142,21 @@ class TestAudioFormatHandlerInterface:
         with pytest.raises(FileNotFoundError):
             self.handler.detect_format("/nonexistent/file.wav")
 
-    def test_convert_if_needed(self):
+    @pytest.mark.asyncio
+    async def test_convert_if_needed(self):
         """Test audio conversion."""
         # No conversion needed (same format)
-        result = self.handler.convert_if_needed(self.test_file, "wav")
+        result = await self.handler.convert_if_needed(self.test_file, "wav")
         assert result == self.test_file
 
         # Conversion needed
-        result = self.handler.convert_if_needed(self.test_file, "mp3")
+        result = await self.handler.convert_if_needed(self.test_file, "mp3")
         assert result != self.test_file
         assert result.endswith("_converted.mp3")
 
         # File not found
         with pytest.raises(FileNotFoundError):
-            self.handler.convert_if_needed("/nonexistent/file.wav")
+            await self.handler.convert_if_needed("/nonexistent/file.wav")
 
     def test_get_audio_metadata(self):
         """Test metadata extraction."""

@@ -1,14 +1,8 @@
 """Unit tests for shared data models."""
 
-import os
-
-# Add the src directory to the path for direct imports
-import sys
 from datetime import datetime
 
 import pytest
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from models import AudioRequest, ModelConfig, STTError, TranscriptionResult
 

@@ -18,7 +18,7 @@ RUN pip install -r /app/tests/requirements.txt
 # Copy test files
 COPY tests/ /app/tests/
 
-# Set Python path to include shared package
+# Set Python path to include shared package src directory
 ENV PYTHONPATH=/app/shared/src:/app
 
 WORKDIR /app/tests

@@ -1,12 +1,12 @@
-"""Custom exceptions for the modular speech-to-text system.
+"""Custom exceptions for the speech-to-text system.
 
-This module defines all custom exceptions used across the shared libraries
-and services to provide consistent error handling and reporting.
+This module defines all custom exception classes used throughout the
+modular speech-to-text system for consistent error handling.
 """
 
 
-class STTBaseError(Exception):
-    """Base exception for all speech-to-text system errors."""
+class STTError(Exception):
+    """Base exception class for all speech-to-text system errors."""
 
     def __init__(self, message: str, details: dict = None):
         """Initialize the exception.
@@ -20,31 +20,31 @@ class STTBaseError(Exception):
         self.details = details or {}
 
 
-class AudioFormatError(STTBaseError):
+class AudioFormatError(STTError):
     """Exception raised for audio format related errors."""
 
     pass
 
 
-class ModelLoadError(STTBaseError):
+class ModelLoadError(STTError):
     """Exception raised when model loading fails."""
 
     pass
 
 
-class TranscriptionError(STTBaseError):
-    """Exception raised when transcription operations fail."""
+class TranscriptionError(STTError):
+    """Exception raised when transcription fails."""
 
     pass
 
 
-class ValidationError(STTBaseError):
-    """Exception raised for data validation errors."""
+class ValidationError(STTError):
+    """Exception raised for validation errors."""
 
     pass
 
 
-class ConfigurationError(STTBaseError):
-    """Exception raised for configuration related errors."""
+class ConfigurationError(STTError):
+    """Exception raised for configuration errors."""
 
     pass
