@@ -5,13 +5,14 @@ follows the expected contract and behavior.
 """
 
 import os
+
+# Add the src directory to the path for direct imports
 import sys
 import tempfile
 from abc import ABC
 
 import pytest
 
-# Add the src directory to the path for direct imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from interfaces.audio_format import AudioFormatHandler

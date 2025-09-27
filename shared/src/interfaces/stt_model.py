@@ -5,15 +5,10 @@ implementations must follow. This ensures consistent behavior across
 different model types (Whisper, mock, etc.).
 """
 
-import os
-import sys
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 
-# Add the parent directory to the path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-from models import AudioRequest, ModelConfig, TranscriptionResult
+from stt_shared.models import AudioRequest, ModelConfig, TranscriptionResult
 
 
 class SpeechToTextModel(ABC):
@@ -33,7 +28,7 @@ class SpeechToTextModel(ABC):
         self._is_loaded = False
 
     @abstractmethod
-    def transcribe(self, request: AudioRequest) -> TranscriptionResult:
+    async def transcribe(self, request: AudioRequest) -> TranscriptionResult:
         """Transcribe audio to text.
 
         Args:
@@ -73,7 +68,7 @@ class SpeechToTextModel(ABC):
         pass
 
     @abstractmethod
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Perform a health check on the model.
 
         Returns:
@@ -86,7 +81,7 @@ class SpeechToTextModel(ABC):
         pass
 
     @abstractmethod
-    def load_model(self) -> None:
+    async def load_model(self) -> None:
         """Load the model into memory.
 
         This method should be called before transcription operations.
@@ -100,7 +95,7 @@ class SpeechToTextModel(ABC):
         pass
 
     @abstractmethod
-    def unload_model(self) -> None:
+    async def unload_model(self) -> None:
         """Unload the model from memory.
 
         This method should clean up model resources and
@@ -128,13 +123,13 @@ class SpeechToTextModel(ABC):
             AudioFormatError: If audio format is not supported
         """
         if not self.is_loaded:
-            from exceptions import ModelLoadError
+            from ..exceptions import ModelLoadError
 
             raise ModelLoadError("Model must be loaded before processing requests")
 
         supported_formats = self.get_supported_formats()
         if request.audio_format.lower() not in supported_formats:
-            from exceptions import AudioFormatError
+            from ..exceptions import AudioFormatError
 
             raise AudioFormatError(
                 f"Audio format '{request.audio_format}' not supported. "

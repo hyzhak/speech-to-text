@@ -1,17 +1,47 @@
 # Implementation Plan
 
-## GitHub Workflow Requirements (Requirement 7)
+## ⚠️ MANDATORY: GitHub Workflow Enforcement
 
-Each task must follow this workflow:
+**CRITICAL**: Every task implementation MUST follow the complete GitHub workflow defined in `.kiro/steering/workflow.md`. This is not optional.
 
-1. **Before starting**: Create GitHub issue in hyzhak/speech-to-text repository
-2. **During implementation**: Comment challenges and findings in the issue
-3. **After implementation**:
-   - Create git flow style branch (feature/task-name)
-   - Make commits following conventional commit format (https://www.conventionalcommits.org/en/v1.0.0/)
-   - Push branch to GitHub
-   - Create PR referencing the GitHub issue
-   - Respond to PR comments with GitHub reactions and code updates
+### Required Workflow Steps for Each Task:
+
+1. **Create GitHub Issue** - Create detailed issue with acceptance criteria
+2. **Prepare Local Environment** - Ensure clean main branch and pull latest changes  
+3. **Create Feature Branch** - Use `feature/issue-number-brief-description` naming
+4. **Implementation and Testing** - Implement functionality with comprehensive tests
+5. **Document Progress** - Add detailed comments to GitHub issue throughout implementation
+6. **Commit Changes** - Use conventional commit format with issue references
+7. **Push Branch** - Push feature branch to GitHub
+8. **Create Pull Request** - Create PR with detailed description referencing issue
+9. **Request Copilot Review** - Trigger automated Copilot review if available
+10. **Wait for Validation** - Ensure all CI/CD checks pass
+11. **Evaluate and Respond to Feedback** - Critically assess each comment (Accept ✅/Consider 🤔/Reject ❌)
+12. **Implement Accepted Changes** - Only implement beneficial feedback
+13. **Repeat Review Process** - Continue until all feedback is addressed
+14. **Merge When Ready** - Squash and merge when approved
+15. **Clean Up Local Environment** - Switch to main, pull changes, delete feature branch
+16. **Complete Task** - Verify issue closure and add final comments
+
+### Code Quality Requirements:
+- **Linting**: Run `./scripts/lint.sh` after every Python code change
+- **Testing**: Ensure 100% test pass rate using `docker compose -f docker-compose.test.yml up --build test-shared --abort-on-container-exit`
+- **Documentation**: Include comprehensive docstrings and type hints
+- **Error Handling**: Use proper exception handling with custom exception classes
+
+### Commit Message Format:
+```
+<type>[optional scope]: <emoji> <description> (#issue-number)
+
+[optional body]
+```
+
+**Types**: feat, fix, docs, style, refactor, test, chore  
+**Examples**: 
+- `feat: 🏗️ implement shared data models and interfaces (#6)`
+- `fix: 🐛 resolve Docker RUN command syntax error (#7)`
+
+---
 
 - [x] 1. Set up project structure and shared interfaces
 

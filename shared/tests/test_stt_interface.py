@@ -5,13 +5,14 @@ follows the expected contract and behavior.
 """
 
 import os
+
+# Add the src directory to the path for direct imports
 import sys
 from abc import ABC
 from datetime import datetime
 
 import pytest
 
-# Add the src directory to the path for direct imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from interfaces.stt_model import SpeechToTextModel
@@ -26,7 +27,7 @@ class MockSTTModel(SpeechToTextModel):
         super().__init__(config)
         self._mock_loaded = False
 
-    def transcribe(self, request: AudioRequest) -> TranscriptionResult:
+    async def transcribe(self, request: AudioRequest) -> TranscriptionResult:
         """Mock transcription that returns a simple result."""
         if not self.is_loaded:
             raise Exception("Model not loaded")
@@ -52,7 +53,7 @@ class MockSTTModel(SpeechToTextModel):
             "loaded": self.is_loaded,
         }
 
-    def health_check(self) -> dict:
+    async def health_check(self) -> dict:
         """Return mock health status."""
         return {
             "status": "healthy" if self.is_loaded else "unhealthy",
@@ -63,12 +64,12 @@ class MockSTTModel(SpeechToTextModel):
             "timestamp": datetime.now().isoformat(),
         }
 
-    def load_model(self) -> None:
+    async def load_model(self) -> None:
         """Mock model loading."""
         self._is_loaded = True
         self._mock_loaded = True
 
-    def unload_model(self) -> None:
+    async def unload_model(self) -> None:
         """Mock model unloading."""
         self._is_loaded = False
         self._mock_loaded = False
@@ -101,24 +102,24 @@ class TestSpeechToTextModelInterface:
         assert not self.model.is_loaded
         assert hasattr(self.model, "_is_loaded")
 
-    def test_load_unload_model(self):
+    async def test_load_unload_model(self):
         """Test model loading and unloading."""
         # Initially not loaded
         assert not self.model.is_loaded
 
         # Load model
-        self.model.load_model()
+        await self.model.load_model()
         assert self.model.is_loaded
 
         # Unload model
-        self.model.unload_model()
+        await self.model.unload_model()
         assert not self.model.is_loaded
 
-    def test_transcribe_requires_loaded_model(self):
+    async def test_transcribe_requires_loaded_model(self):
         """Test that transcription requires a loaded model."""
         # Should work when loaded
-        self.model.load_model()
-        result = self.model.transcribe(self.audio_request)
+        await self.model.load_model()
+        result = await self.model.transcribe(self.audio_request)
         assert isinstance(result, TranscriptionResult)
         assert result.text == "Mock transcription result"
         assert result.model_used == "mock"
@@ -143,10 +144,10 @@ class TestSpeechToTextModelInterface:
         assert info["type"] == self.config.model_type
         assert info["parameters"] == self.config.parameters
 
-    def test_health_check(self):
+    async def test_health_check(self):
         """Test health check functionality."""
         # Test when not loaded
-        health = self.model.health_check()
+        health = await self.model.health_check()
         assert isinstance(health, dict)
 
         required_fields = ["status", "message", "details", "timestamp"]
@@ -159,13 +160,13 @@ class TestSpeechToTextModelInterface:
         assert isinstance(health["timestamp"], str)
 
         # Test when loaded
-        self.model.load_model()
-        health_loaded = self.model.health_check()
+        await self.model.load_model()
+        health_loaded = await self.model.health_check()
         assert health_loaded["status"] == "healthy"
 
-    def test_validate_request_with_loaded_model(self):
+    async def test_validate_request_with_loaded_model(self):
         """Test request validation with loaded model."""
-        self.model.load_model()
+        await self.model.load_model()
 
         # Valid request should not raise
         valid_request = AudioRequest(
@@ -180,14 +181,14 @@ class TestSpeechToTextModelInterface:
         with pytest.raises(Exception):  # ModelLoadError when exceptions module exists
             self.model.validate_request(self.audio_request)
 
-    def test_is_loaded_property(self):
+    async def test_is_loaded_property(self):
         """Test the is_loaded property."""
         assert not self.model.is_loaded
 
-        self.model.load_model()
+        await self.model.load_model()
         assert self.model.is_loaded
 
-        self.model.unload_model()
+        await self.model.unload_model()
         assert not self.model.is_loaded
 
 

@@ -4,15 +4,10 @@ This module defines the interface for audio format handling operations
 including format detection, validation, and conversion utilities.
 """
 
-import os
-import sys
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
-# Add the parent directory to the path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-from models import AudioRequest
+from stt_shared.models import AudioRequest
 
 
 class AudioFormatHandler(ABC):
@@ -138,13 +133,13 @@ class AudioFormatHandler(ABC):
         import os
 
         if not os.path.exists(request.file_path):
-            from exceptions import ValidationError
+            from stt_shared.exceptions import ValidationError
 
             raise ValidationError(f"Audio file not found: {request.file_path}")
 
         # Validate format is supported
         if not self.is_format_supported(request.audio_format):
-            from exceptions import AudioFormatError
+            from stt_shared.exceptions import AudioFormatError
 
             raise AudioFormatError(
                 f"Audio format '{request.audio_format}' not supported. "
@@ -155,14 +150,14 @@ class AudioFormatHandler(ABC):
         try:
             detected_format = self.detect_format(request.file_path)
             if detected_format.lower() != request.audio_format.lower():
-                from exceptions import AudioFormatError
+                from stt_shared.exceptions import AudioFormatError
 
                 raise AudioFormatError(
                     f"File format mismatch. Declared: '{request.audio_format}', "
                     f"Detected: '{detected_format}'"
                 )
         except Exception as e:
-            from exceptions import ValidationError
+            from stt_shared.exceptions import ValidationError
 
             raise ValidationError(f"Failed to validate audio file: {str(e)}")
 
