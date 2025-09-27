@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  test-shared:
+    build:
+      context: .
+      dockerfile: tests/Dockerfile
+    volumes:
+      - ./shared:/app/shared
+      - ./tests:/app/tests
+    environment:
+      - PYTHONPATH=/app/shared/src:/app
+    command:
+      ["python", "-m", "pytest", "/app/shared/tests/", "-v", "--tb=short"]
+
+  test-integration:
+    build:
+      context: .
+      dockerfile: tests/Dockerfile
+    volumes:
+      - ./shared:/app/shared
+      - ./tests:/app/tests
+    environment:
+      - PYTHONPATH=/app/shared/src:/app
+    command: ["python", "-m", "pytest", "/app/tests/", "-v", "--tb=short"]
+    depends_on:
+      - test-shared
