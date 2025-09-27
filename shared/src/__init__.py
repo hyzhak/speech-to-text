@@ -14,6 +14,7 @@ from .exceptions import (
 )
 from .interfaces.audio_format import AudioFormatHandler
 from .interfaces.stt_model import SpeechToTextModel
+from .mock_audio_format_handler import MockAudioFormatHandler
 from .mock_stt_model import MockSpeechToTextModel
 from .models import AudioRequest, ModelConfig, TranscriptionResult
 
@@ -34,4 +35,5 @@ __all__ = [
     "AudioFormatHandler",
     # Implementations
     "MockSpeechToTextModel",
+    "MockAudioFormatHandler",
 ]

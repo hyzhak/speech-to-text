@@ -91,7 +91,7 @@
   - **Git Flow**: Create feature/mock-stt-model branch, commit as "feat: implement MockSpeechToTextModel with configurable responses"
   - _Requirements: 2.2, 4.1, 4.2, 7.1, 7.2, 7.3, 7.4_
 
-- [ ] 3.2 Create mock audio format handler
+- [-] 3.2 Create mock audio format handler
 
   - **GitHub Issue**: Create issue "Create mock audio format handler"
   - Implement mock format detection that works with test audio files
