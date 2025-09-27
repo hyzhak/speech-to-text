@@ -5,16 +5,21 @@ This script should be run from the shared/ directory to test the package setup.
 Usage: python validate_setup.py
 """
 
-import sys
 import os
 import subprocess
+import sys
+
 
 def test_package_installation():
     """Test that the package can be installed in development mode."""
     try:
         # Install package in development mode
-        result = subprocess.run([sys.executable, "-m", "pip", "install", "-e", "."], 
-                              capture_output=True, text=True, cwd=os.path.dirname(__file__))
+        result = subprocess.run(
+            [sys.executable, "-m", "pip", "install", "-e", "."],
+            capture_output=True,
+            text=True,
+            cwd=os.path.dirname(__file__),
+        )
         if result.returncode != 0:
             print(f"❌ Package installation failed: {result.stderr}")
             return False
@@ -24,30 +29,44 @@ def test_package_installation():
         print(f"❌ Package installation error: {e}")
         return False
 
+
 def test_imports():
     """Test that all shared components can be imported correctly."""
     try:
         # Test importing the main package
-        import stt_shared
+        import stt_shared  # noqa: F401
+
         print("✅ Main package imported successfully")
-        
+
         # Test data models
-        from stt_shared import AudioRequest, TranscriptionResult, ModelConfig, STTError
-        print("✅ Data models imported successfully")
-        
-        # Test exceptions
-        from stt_shared import (
-            STTException, AudioFormatError, ModelLoadError, 
-            TranscriptionError, ValidationError, ConfigurationError
+        from stt_shared import (  # noqa: F401
+            AudioRequest,
+            ModelConfig,
+            STTError,
+            TranscriptionResult,
         )
+
+        print("✅ Data models imported successfully")
+
+        # Test exceptions
+        from stt_shared import (  # noqa: F401
+            AudioFormatError,
+            ConfigurationError,
+            ModelLoadError,
+            STTBaseError,
+            TranscriptionError,
+            ValidationError,
+        )
+
         print("✅ Exception classes imported successfully")
-        
+
         # Test interfaces
-        from stt_shared import SpeechToTextModel, AudioFormatHandler
+        from stt_shared import AudioFormatHandler, SpeechToTextModel  # noqa: F401
+
         print("✅ Interfaces imported successfully")
-        
+
         return True
-        
+
     except ImportError as e:
         print(f"❌ Import error: {e}")
         return False
@@ -55,48 +74,48 @@ def test_imports():
         print(f"❌ Unexpected error: {e}")
         return False
 
+
 def test_data_models():
     """Test that data models work correctly with validation."""
     try:
-        from models import AudioRequest, TranscriptionResult, ModelConfig
-        
+        from models import AudioRequest, ModelConfig, TranscriptionResult
+
         # Test AudioRequest
-        request = AudioRequest(
-            file_path="/test/audio.wav",
-            audio_format="wav"
+        request = AudioRequest(  # noqa: F841
+            file_path="/test/audio.wav", audio_format="wav"
         )
         print("✅ AudioRequest creation successful")
-        
+
         # Test TranscriptionResult
-        result = TranscriptionResult(
+        result = TranscriptionResult(  # noqa: F841
             text="Hello world",
             confidence=0.95,
             processing_time=1.5,
-            model_used="whisper"
+            model_used="whisper",
         )
         print("✅ TranscriptionResult creation successful")
-        
+
         # Test ModelConfig
-        config = ModelConfig(
-            model_type="whisper",
-            model_path="/models/whisper-base"
+        config = ModelConfig(  # noqa: F841
+            model_type="whisper", model_path="/models/whisper-base"
         )
         print("✅ ModelConfig creation successful")
-        
+
         return True
-        
+
     except Exception as e:
         print(f"❌ Data model test error: {e}")
         return False
 
+
 if __name__ == "__main__":
     print("Validating shared package setup...")
     print()
-    
+
     success = True
     success &= test_imports()
     success &= test_data_models()
-    
+
     print()
     if success:
         print("🎉 All validation tests passed!")
