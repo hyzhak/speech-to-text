@@ -8,22 +8,22 @@ from .exceptions import (
     AudioFormatError,
     ConfigurationError,
     ModelLoadError,
-    STTBaseError,
+    STTError,
     TranscriptionError,
     ValidationError,
 )
 from .interfaces.audio_format import AudioFormatHandler
 from .interfaces.stt_model import SpeechToTextModel
-from .models import AudioRequest, ModelConfig, STTError, TranscriptionResult
+from .mock_stt_model import MockSpeechToTextModel
+from .models import AudioRequest, ModelConfig, TranscriptionResult
 
 __all__ = [
     # Data Models
     "AudioRequest",
     "TranscriptionResult",
     "ModelConfig",
-    "STTError",
     # Exceptions
-    "STTBaseError",
+    "STTError",
     "AudioFormatError",
     "ModelLoadError",
     "TranscriptionError",
@@ -32,4 +32,6 @@ __all__ = [
     # Interfaces
     "SpeechToTextModel",
     "AudioFormatHandler",
+    # Implementations
+    "MockSpeechToTextModel",
 ]

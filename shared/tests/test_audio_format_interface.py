@@ -44,7 +44,9 @@ class MockAudioFormatHandler(AudioFormatHandler):
 
         return self._mock_files[file_path]
 
-    async def convert_if_needed(self, file_path: str, target_format: str = "wav") -> str:
+    async def convert_if_needed(
+        self, file_path: str, target_format: str = "wav"
+    ) -> str:
         """Mock conversion."""
         if file_path not in self._mock_files:
             raise FileNotFoundError(f"File not found: {file_path}")
