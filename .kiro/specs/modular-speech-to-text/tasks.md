@@ -80,8 +80,8 @@
   - **Git Flow**: Create feature/audio-format-handler branch, commit as "feat: implement AudioFormatHandler interface and utilities"
   - _Requirements: 1.3, 4.1, 4.2, 7.1, 7.2, 7.3, 7.4_
 
-- [ ] 3. Create mock model implementation for testing
-- [ ] 3.1 Implement MockSpeechToTextModel
+- [-] 3. Create mock model implementation for testing
+- [-] 3.1 Implement MockSpeechToTextModel
 
   - **GitHub Issue**: Create issue "Implement MockSpeechToTextModel for testing"
   - Code MockSpeechToTextModel class implementing SpeechToTextModel interface
