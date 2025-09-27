@@ -60,7 +60,9 @@ class AudioFormatHandler(ABC):
         pass
 
     @abstractmethod
-    async def convert_if_needed(self, file_path: str, target_format: str = "wav") -> str:
+    async def convert_if_needed(
+        self, file_path: str, target_format: str = "wav"
+    ) -> str:
         """Convert audio file to target format if needed.
 
         Args:
