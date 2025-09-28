@@ -7,15 +7,12 @@ testing all endpoints and their functionality.
 import io
 import os
 
-# Import the FastAPI app
-import sys
-
 import pytest
 from fastapi.testclient import TestClient
 
+# Import the FastAPI app
+import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-sys.path.insert(0, '/app/shared/src')
-
 from main import app
 
 
@@ -26,7 +23,7 @@ class TestAudioFormatService:
         """Set up test fixtures before each test method."""
         # Import here to ensure proper path setup
         import main
-        from mock_audio_format_handler import MockAudioFormatHandler
+        from stt_shared.mock_audio_format_handler import MockAudioFormatHandler
 
         # Initialize the handler manually for testing
         main.audio_handler = MockAudioFormatHandler()
@@ -194,7 +191,7 @@ class TestAudioFormatServiceErrorHandling:
         """Set up test fixtures before each test method."""
         # Import here to ensure proper path setup
         import main
-        from mock_audio_format_handler import MockAudioFormatHandler
+        from stt_shared.mock_audio_format_handler import MockAudioFormatHandler
 
         # Initialize the handler manually for testing
         main.audio_handler = MockAudioFormatHandler()
@@ -239,7 +236,7 @@ class TestAudioFormatServiceIntegration:
         """Set up test fixtures before each test method."""
         # Import here to ensure proper path setup
         import main
-        from mock_audio_format_handler import MockAudioFormatHandler
+        from stt_shared.mock_audio_format_handler import MockAudioFormatHandler
 
         # Initialize the handler manually for testing
         main.audio_handler = MockAudioFormatHandler()

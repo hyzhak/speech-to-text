@@ -5,9 +5,6 @@ Provides REST endpoints for audio format handling operations.
 """
 
 import os
-
-# Import from shared package
-import sys
 import tempfile
 from contextlib import asynccontextmanager
 from typing import Dict, List, Optional
@@ -15,11 +12,10 @@ from typing import Dict, List, Optional
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile, status
 from pydantic import BaseModel, Field
 
-sys.path.insert(0, '/app/shared/src')
-
-from exceptions import AudioFormatError, ValidationError
-from interfaces.audio_format import AudioFormatHandler
-from mock_audio_format_handler import MockAudioFormatHandler
+# Import from shared package
+from stt_shared.exceptions import AudioFormatError, ValidationError
+from stt_shared.interfaces.audio_format import AudioFormatHandler
+from stt_shared.mock_audio_format_handler import MockAudioFormatHandler
 
 
 # Response models
