@@ -101,7 +101,7 @@
   - _Requirements: 4.1, 4.2, 7.1, 7.2, 7.3, 7.4_
 
 - [ ] 4. Implement audio format service
-- [ ] 4.1 Create audio format service application
+- [-] 4.1 Create audio format service application
 
   - **GitHub Issue**: Create issue "Create audio format service application"
   - Code FastAPI application in audio-format-service/src/main.py
