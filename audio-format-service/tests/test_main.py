@@ -10,9 +10,7 @@ import os
 import pytest
 from fastapi.testclient import TestClient
 
-# Import the FastAPI app
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Import the FastAPI app - this should work with proper PYTHONPATH
 from main import app
 
 
