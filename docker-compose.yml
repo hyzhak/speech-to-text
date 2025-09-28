@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  audio-format-service:
+    build:
+      context: .
+      dockerfile: audio-format-service/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONPATH=/app/src
+      - TEMP_DIR=/app/temp
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+volumes:
+  data:
+  models:
