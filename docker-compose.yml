@@ -1,0 +1,31 @@
+services:
+  audio-format-service:
+    build:
+      context: .
+      dockerfile: audio-format-service/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      # Python path for imports
+      - PYTHONPATH=/app/src
+      
+      # Application settings - REQUIRED, no defaults
+      # Override via .env file or environment variables
+      - AUDIO_FORMAT_HOST=0.0.0.0
+      - AUDIO_FORMAT_PORT=8001
+      - AUDIO_FORMAT_RELOAD=false
+      - AUDIO_FORMAT_LOG_LEVEL=info
+      
+      # File handling - REQUIRED, no defaults
+      - AUDIO_FORMAT_TEMP_DIR=/app/temp
+      - AUDIO_FORMAT_MAX_FILE_SIZE=104857600  # 100MB
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import sys, http.client; conn = http.client.HTTPConnection('localhost', 8001); conn.request('GET', '/health'); resp = conn.getresponse(); sys.exit(0) if resp.status == 200 else sys.exit(1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
